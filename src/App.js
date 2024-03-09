@@ -1,10 +1,16 @@
-import { BrowserRouter, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Layout from "./components/common/Layout"
+import { Home } from "./pages"
+import { Suspense } from "react"
 
 const App = () => {
   return (
     <BrowserRouter>
-      <Routes>
-      </Routes>
+      <Suspense fallback={<h1>Loading...</h1>}>
+        <Routes>
+          <Route path="/" element={<Layout><Home /></Layout>} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   )
 }
