@@ -14,9 +14,9 @@ const Toast = ({ type = "success", message, clearMessage }) => {
 
     return (
         <>
-            {message && <div className={`fixed top-4 right-4 z-50 rounded-md max-w-md px-4 py-2 tracking-tight text-white ${type === "success" ? "bg-green-500" : "bg-red-500"}`} >
+            {message && <div className={`fixed top-4 md:right-4 z-50 rounded-md max-w-md px-4 py-2 tracking-tight text-white ${type === "success" ? "bg-green-500" : "bg-red-500"}`} >
                 <div className="flex items-center justify-center">
-                    <span className="text-xl font-semibold">{message}</span>
+                    <span className="text-base md:text-xl font-semibold">{message}</span>
                 </div>
             </div >
             }

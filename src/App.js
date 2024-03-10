@@ -1,9 +1,19 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Layout from "./components/common/Layout"
 import { Home, Register } from "./pages"
-import { Suspense } from "react"
+import { Suspense, useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { fetchUserDataAsync } from "./features/user/userSlice"
 
 const App = () => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUserDataAsync());
+
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Suspense fallback={<h1>Loading...</h1>}>
