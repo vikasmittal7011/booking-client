@@ -11,8 +11,8 @@ const Header = () => {
     const { user, message, status } = useSelector(selectuser)
 
     const handleClick = () => {
-        dispatch(logoutUserAsync())
-        dispatch(out())
+        dispatch(logoutUserAsync());
+        dispatch(out());
     }
 
     return (

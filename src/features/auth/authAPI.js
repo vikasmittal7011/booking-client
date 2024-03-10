@@ -47,3 +47,32 @@ export const loginUser = async (userData) => {
     });
 }
 
+export const passwrodRequest = async (email) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await axios.post(API + "auth/reset-password-request", {
+                ...email
+            },
+                { withCredentials: true, }
+            );
+            resolve({ success: response.data.success });
+        } catch (error) {
+            reject({ message: error.response.data.message });
+        }
+    });
+}
+
+export const passwrodReset = async (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await axios.post(API + "auth/reset-password", {
+                ...data
+            },
+                { withCredentials: true, }
+            );
+            resolve({ success: response.data.success });
+        } catch (error) {
+            reject({ message: error.response.data.message });
+        }
+    });
+}

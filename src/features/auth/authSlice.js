@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { generateOTP, loginUser, registerUser } from "./authAPI";
+import { generateOTP, loginUser, passwrodRequest, passwrodReset, registerUser } from "./authAPI";
 
 const initialState = {
     status: "idle",
@@ -9,6 +9,9 @@ const initialState = {
     sendOTP: false,
     registerSuccess: false,
     loginSuccess: false,
+    logoutSuccess: false,
+    passwordResetRequest: false,
+    passwordReset: false,
     userData: {},
 };
 
@@ -36,6 +39,22 @@ export const loginUserAync = createAsyncThunk(
     }
 );
 
+export const passwrodRequestAync = createAsyncThunk(
+    "auth/passwrodRequest",
+    async (email) => {
+        const response = await passwrodRequest(email);
+        return response;
+    }
+);
+
+export const passwrodResetAync = createAsyncThunk(
+    "auth/passwrodReset",
+    async (data) => {
+        const response = await passwrodReset(data);
+        return response;
+    }
+);
+
 export const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -52,10 +71,35 @@ export const authSlice = createSlice({
             state.sendOTP = false;
             state.registerSuccess = false;
             state.loginSuccess = false;
+            state.logoutSuccess = true;
         }
     },
     extraReducers: (builder) => {
         builder
+            .addCase(passwrodResetAync.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(passwrodResetAync.fulfilled, (state) => {
+                state.status = "idle";
+                state.passwordReset = true;
+                state.message = "Password Reset Success!!";
+            })
+            .addCase(passwrodResetAync.rejected, (state, action) => {
+                state.status = "failed";
+                state.message = action.error.message;
+            })
+            .addCase(passwrodRequestAync.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(passwrodRequestAync.fulfilled, (state) => {
+                state.status = "idle";
+                state.passwordResetRequest = true;
+                state.message = "Request sent to your email";
+            })
+            .addCase(passwrodRequestAync.rejected, (state, action) => {
+                state.status = "failed";
+                state.message = action.error.message;
+            })
             .addCase(loginUserAync.pending, (state) => {
                 state.status = "loading";
             })

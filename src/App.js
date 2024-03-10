@@ -8,21 +8,21 @@ import { selectauth } from "./features/auth/authSlice"
 
 const App = () => {
 
-  const { registerSuccess, loginSuccess } = useSelector(selectauth)
+  const { registerSuccess, loginSuccess, logoutSuccess } = useSelector(selectauth)
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchUserDataAsync());
 
-  }, [dispatch, loginSuccess, registerSuccess]);
+  }, [dispatch, loginSuccess, registerSuccess, logoutSuccess]);
 
   return (
     <BrowserRouter>
       <Suspense fallback={<h1>Loading...</h1>}>
         <Routes>
           <Route path="/" element={<Layout><Home /></Layout>} />
-          <Route exact path="/login" element={<Layout><Login /></Layout>} />
+          <Route exact path="/login/:token?" element={<Layout><Login /></Layout>} />
           <Route exact path="/register" element={<Layout><Register /></Layout>} />
         </Routes>
       </Suspense>
