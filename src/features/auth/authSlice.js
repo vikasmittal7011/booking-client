@@ -9,13 +9,7 @@ const initialState = {
     sendOTP: false,
     registerSuccess: false,
     loginSuccess: false,
-    userData: {
-        firstName: "Vikas",
-        lastName: "Gupta",
-        email: "vikasaggrawal700@gmail.com",
-        password: "Sonu@9876",
-        confirmPassword: "Sonu@9876"
-    },
+    userData: {},
 };
 
 export const generateOTPAync = createAsyncThunk(
@@ -52,6 +46,13 @@ export const authSlice = createSlice({
         retypeData: (state) => {
             state.sendOTP = false;
         },
+        out: (state) => {
+            state.sendMail = false;
+            state.resetPassword = false;
+            state.sendOTP = false;
+            state.registerSuccess = false;
+            state.loginSuccess = false;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -98,7 +99,7 @@ export const authSlice = createSlice({
     },
 });
 
-export const { clearMessage, retypeData } = authSlice.actions;
+export const { clearMessage, retypeData, out } = authSlice.actions;
 
 export const selectauth = (state) => state.auth;
 

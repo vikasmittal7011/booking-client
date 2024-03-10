@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchUserData } from "./userAPI";
+import { fetchUserData, logoutUser } from "./userAPI";
 
 const initialState = {
   status: "idle",
@@ -12,6 +12,14 @@ export const fetchUserDataAsync = createAsyncThunk(
   "user/fetchUserData",
   async () => {
     const response = await fetchUserData();
+    return response;
+  }
+);
+
+export const logoutUserAsync = createAsyncThunk(
+  "user/logoutUser",
+  async () => {
+    const response = await logoutUser();
     return response;
   }
 );
@@ -40,7 +48,19 @@ export const userSlice = createSlice({
       .addCase(fetchUserDataAsync.rejected, (state, action) => {
         state.status = "failed";
         state.message = action.error.message;
-      });
+      })
+      .addCase(logoutUserAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(logoutUserAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.user = {};
+        state.message = action.payload.data.message;
+      })
+      .addCase(logoutUserAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.message = action.error.message;
+      })
   },
 });
 

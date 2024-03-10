@@ -38,7 +38,7 @@ const OTPForm = () => {
 
             <div className="flex flex-col md:flex-row justify-between md:items-center gap-5">
                 <span onClick={handleClick} className="cursor-pointer underline text-blue-600 hover:text-cyan-800">Enter Email Again</span>
-                <button type="submit" className={`bg-blue-700 text-white p-2 px-4 rounded-md font-bold text-xl hover:bg-blue-500 transition-all ${status === "loading" ? "cursor-not-allowed" : "cursor-pointer"} flex justify-center items-center gap-2`}>
+                <button type="submit" className={`outline-none bg-blue-700 text-white p-2 px-4 rounded-md font-bold text-xl hover:bg-blue-500 transition-all ${status === "loading" ? "cursor-not-allowed" : "cursor-pointer"} flex justify-center items-center gap-2`}>
                     <ClipLoader size={20} color="white" loading={status === "loading"} />
                     <div>Verify OTP</div>
                 </button>

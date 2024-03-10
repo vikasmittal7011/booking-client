@@ -1,12 +1,14 @@
 import RegisterForm from "../components/register/RegisterForm";
 import OTPForm from "../components/register/OTPForm";
-import { useSelector } from "react-redux";
-import { clearMessage, selectauth } from "../features/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { clearMessage, out, selectauth } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Toast from "../components/common/Toast";
 
 const Register = () => {
+
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
@@ -14,9 +16,10 @@ const Register = () => {
 
     useEffect(() => {
         if (registerSuccess) {
+            dispatch(out());
             return navigate("/");
         }
-    }, [registerSuccess, navigate]);
+    }, [registerSuccess, navigate, dispatch]);
 
 
     return (

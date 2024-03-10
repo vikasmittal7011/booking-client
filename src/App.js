@@ -2,17 +2,20 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Layout from "./components/common/Layout"
 import { Home, Login, Register } from "./pages"
 import { Suspense, useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { fetchUserDataAsync } from "./features/user/userSlice"
+import { selectauth } from "./features/auth/authSlice"
 
 const App = () => {
+
+  const { registerSuccess, loginSuccess } = useSelector(selectauth)
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchUserDataAsync());
 
-  }, [dispatch]);
+  }, [dispatch, loginSuccess, registerSuccess]);
 
   return (
     <BrowserRouter>

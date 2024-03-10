@@ -60,11 +60,11 @@ const Login = () => {
                 <div className="flex flex-col md:flex-row justify-between md:items-center gap-5">
                     <span className="flex gap-1">
                         Don't have an account?
-                        <Link onClick={scrollToTop} to="/register" className="underline text-blue-600 transition-all hover:text-cyan-800">
+                        <Link onClick={scrollToTop} to="/register" className="underline outline-none text-blue-600 transition-all hover:text-cyan-800">
                             Create One!
                         </Link>
                     </span>
-                    <button type="submit" className={`bg-blue-700 text-white p-2 px-4 rounded-md font-bold text-xl hover:bg-blue-500 transition-all ${status === "loading" ? "cursor-not-allowed" : "cursor-pointer"} flex justify-center items-center gap-2`}>
+                    <button type="submit" className={`bg-blue-700 outline-none text-white p-2 px-4 rounded-md font-bold text-xl hover:bg-blue-500 transition-all ${status === "loading" ? "cursor-not-allowed" : "cursor-pointer"} flex justify-center items-center gap-2`}>
                         <ClipLoader size={20} color="white" loading={status === "loading"} />
                         <div>Login Account</div>
                     </button>
