@@ -32,3 +32,18 @@ export const registerUser = async (userData) => {
     });
 }
 
+export const loginUser = async (userData) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await axios.post(API + "auth/login", {
+                ...userData
+            },
+                { withCredentials: true, }
+            );
+            resolve({ data: response.data });
+        } catch (error) {
+            reject({ message: error.response.data.message });
+        }
+    });
+}
+

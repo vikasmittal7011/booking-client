@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { generateOTP, registerUser } from "./authAPI";
+import { generateOTP, loginUser, registerUser } from "./authAPI";
 
 const initialState = {
     status: "idle",
@@ -8,6 +8,7 @@ const initialState = {
     resetPassword: false,
     sendOTP: false,
     registerSuccess: false,
+    loginSuccess: false,
     userData: {
         firstName: "Vikas",
         lastName: "Gupta",
@@ -33,6 +34,14 @@ export const registerUserAync = createAsyncThunk(
     }
 );
 
+export const loginUserAync = createAsyncThunk(
+    "auth/loginUser",
+    async (userData) => {
+        const response = await loginUser(userData);
+        return response;
+    }
+);
+
 export const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -46,6 +55,19 @@ export const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            .addCase(loginUserAync.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(loginUserAync.fulfilled, (state) => {
+                state.status = "idle";
+                state.loginSuccess = true;
+                state.userData = {};
+                state.message = "Loing is suucess!!";
+            })
+            .addCase(loginUserAync.rejected, (state, action) => {
+                state.status = "failed";
+                state.message = action.error.message;
+            })
             .addCase(registerUserAync.pending, (state) => {
                 state.status = "loading";
             })

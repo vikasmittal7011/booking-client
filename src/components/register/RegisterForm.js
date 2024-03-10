@@ -3,10 +3,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { generateOTPAync, selectauth } from "../../features/auth/authSlice"
 import { useEffect } from "react"
 import { ClipLoader } from "react-spinners"
-
-const inputClass = "border-2 border-blue-400 focus:outline-blue-800 rounded-md w-full py-2 px-2 font-normal mt-2 text-lg"
-
-const labelClass = "font-bold text-gray-700 text-lg flex-1"
+import { Link } from "react-router-dom"
+import { inputClass, labelClass, scrollToTop } from "../../constant"
 
 const RegisterForm = () => {
 
@@ -76,8 +74,13 @@ const RegisterForm = () => {
                 {errors.confirmPassword && <span className="text-red-500">{errors.confirmPassword.message}</span>}
             </label>
 
-            <div className="flex flex-col md:flex-row justify-between items-center">
-                <span>Login</span>
+            <div className="flex flex-col md:flex-row justify-between md:items-center gap-5">
+                <span className="flex gap-1">
+                    Already have an account?
+                    <Link onClick={scrollToTop} to="/login" className="underline text-blue-600 transition-all hover:text-cyan-800">
+                        Login!
+                    </Link>
+                </span>
                 <button type="submit" className={`bg-blue-700 text-white p-2 px-4 rounded-md font-bold text-xl hover:bg-blue-500 transition-all ${status === "loading" ? "cursor-not-allowed" : "cursor-pointer"} flex justify-center items-center gap-2`}>
                     <ClipLoader size={20} color="white" loading={status === "loading"} />
                     <div>Create Account</div>
