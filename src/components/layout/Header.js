@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { clearMessage, logoutUserAsync, selectuser } from "../../features/user/userSlice"
 import Toast from "../common/Toast"
 import { out } from "../../features/auth/authSlice"
+import LoginLinks from "./LoginLinks"
 
 const Header = () => {
 
@@ -27,9 +28,7 @@ const Header = () => {
                         <Link to="/login" className="rounded-xl flex items-center px-3 bg-white text-blue-700 hover:text-blue-500 hover:bg-gray-100 transition outline-none">Login</Link>
                     </span>
                     :
-                    <span className="flex space-x-2 text-xl">
-                        <button onClick={handleClick} to="/login" className="rounded-xl flex items-center px-3 bg-white text-blue-700 hover:text-blue-500 hover:bg-gray-100 transition outline-none">Logout</button>
-                    </span>
+                    <LoginLinks handleClick={handleClick} />
                 }
             </div>
         </div>
