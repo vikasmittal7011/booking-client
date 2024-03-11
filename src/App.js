@@ -1,10 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Layout from "./components/common/Layout"
-import { Home, Login, Register } from "./pages"
+import { AddHotel, Home, Login, MyHotels, Register } from "./pages"
 import { Suspense, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchUserDataAsync } from "./features/user/userSlice"
 import { selectauth } from "./features/auth/authSlice"
+import Protected from "./components/common/Protected"
 
 const App = () => {
 
@@ -13,8 +14,9 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchUserDataAsync());
-
+    setTimeout(() => {
+      dispatch(fetchUserDataAsync());
+    }, 1000);
   }, [dispatch, loginSuccess, registerSuccess, logoutSuccess]);
 
   return (
@@ -24,6 +26,8 @@ const App = () => {
           <Route path="/" element={<Layout><Home /></Layout>} />
           <Route exact path="/login/:token?" element={<Layout><Login /></Layout>} />
           <Route exact path="/register" element={<Layout><Register /></Layout>} />
+          <Route exact path="/my-hotel" element={<Protected><Layout><MyHotels /></Layout></Protected>} />
+          <Route exact path="/add-hotel" element={<Protected><Layout><AddHotel /></Layout></Protected>} />
         </Routes>
       </Suspense>
     </BrowserRouter>
