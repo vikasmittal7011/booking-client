@@ -49,3 +49,40 @@ export const upateHotel = (hotel) => {
     }
   });
 }
+
+
+export const getHotels = (data) => {
+  let queryString = "";
+
+  for (let key in data.filters) {
+    const categoryValues = data.filters[key];
+    if (categoryValues.length) {
+      queryString += `${key}=${categoryValues}&`;
+    }
+  }
+
+  for (let key in data.sort) {
+    queryString += `${key}=${data.sort[key]}&`;
+  }
+
+  for (let key in data.pagination) {
+    queryString += `${key}=${data.pagination[key]}&`;
+  }
+
+  if (data.location) {
+    queryString += `location=${data.location}&`;
+  }
+
+  if (data.maxPrice) {
+    queryString += `price=${data.maxPrice}&`;
+  }
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios.get(API + "hotel?" + queryString, { withCredentials: true });
+      resolve({ data: response.data });
+    } catch (error) {
+      reject({ message: error.response.data.message });
+    }
+  });
+}
