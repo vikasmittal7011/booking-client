@@ -31,7 +31,7 @@ const Address = () => {
                 </label>
                 <label className={labelClass}>
                     Pin
-                    <input {...register("pin", { required: "This field is require..." })} className={inputClass} />
+                    <input type="number" {...register("pin", { required: "This field is require..." })} className={inputClass} />
                     {errors.pin && <span className="text-red-500">{errors.pin.message}</span>}
                 </label>
             </div>
