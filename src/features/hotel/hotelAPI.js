@@ -14,3 +14,15 @@ export const createHotel = (hotel) => {
     }
   });
 }
+
+export const getHotelById = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios.get(API + "hotel/" + id);
+      console.log(response)
+      resolve({ data: response.data });
+    } catch (error) {
+      reject({ message: error.response.data.message });
+    }
+  });
+}

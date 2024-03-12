@@ -5,5 +5,6 @@ const Register = lazy(() => import("./Register"))
 const Login = lazy(() => import("./Login"))
 const MyHotels = lazy(() => import("./MyHotels"))
 const AddHotel = lazy(() => import("./AddHotel"))
+const HotelDetail = lazy(() => import("./HotelDetail"))
 
-export { Home, Register, Login, MyHotels, AddHotel }
+export { Home, Register, Login, MyHotels, AddHotel, HotelDetail }
