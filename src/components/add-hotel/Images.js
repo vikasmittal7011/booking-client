@@ -63,7 +63,7 @@ const Images = ({ images, setImages, error, setError }) => {
                 <button type="button" onClick={handleClick} className="md:w-28 w-32 bg-gray-500 px-3 py-3 rounded-md transition-all hover:bg-gray-700 hover:text-white">Add This</button>
             </div>
             <div className="grid gap-3 grid-cols-3 md:grid-cols-4 lg:grid-cols-6 mt-2">
-                {images.length > 0 && images.map((img, i) => (
+                {images?.length > 0 && images.map((img, i) => (
                     <div key={i} className="h-32 flex gap-5 relative">
                         <img src={img} alt="" className="rounded-2xl object-cover w-full" />
                         <div onClick={() => removeImage(img)} className="absolute bg-gray-700 text-white rounded-md right-2 bottom-2 cursor-pointer px-2 py-1 opacity-75">

@@ -36,3 +36,16 @@ export const getHotelByUser = () => {
     }
   });
 }
+
+export const upateHotel = (hotel) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios.post(API + "hotel/update", { ...hotel },
+        { withCredentials: true, }
+      );
+      resolve({ data: response.data });
+    } catch (error) {
+      reject({ message: error.response.data.message });
+    }
+  });
+}

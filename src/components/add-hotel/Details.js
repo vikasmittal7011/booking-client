@@ -52,20 +52,6 @@ const Details = () => {
                 <textarea rows={3} {...register("extraInfo", { required: "This field is require..." })} className={inputClass} />
                 {errors.extraInfo && <span className="text-red-500">{errors.extraInfo.message}</span>}
             </label>
-
-            <div className="flex flex-col md:flex-row gap-5 bg-gray-400 p-3">
-                <label className={labelClass}>
-                    Check In Time
-                    <input type="time" {...register("checkIn", { required: "This field is require..." })} className={inputClass} />
-                    {errors.checkIn && <span className="text-red-500">{errors.checkIn.message}</span>}
-                </label>
-
-                <label className={labelClass}>
-                    Check Out Time
-                    <input type="time" {...register("checkOut", { required: "This field is require..." })} className={inputClass} />
-                    {errors.checkOut && <span className="text-red-500">{errors.checkOut.message}</span>}
-                </label>
-            </div>
         </div>
     )
 }

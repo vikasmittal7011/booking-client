@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Layout from "./components/common/Layout"
-import { AddHotel, Home, HotelDetail, Login, MyHotels, Register } from "./pages"
+import { AddHotel, EditHotel, Home, HotelDetail, Login, MyHotels, Register } from "./pages"
 import { Suspense, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchUserDataAsync } from "./features/user/userSlice"
@@ -30,6 +30,7 @@ const App = () => {
           <Route exact path="/hotel/:id?" element={<Layout><HotelDetail /></Layout>} />
           <Route exact path="/my-hotel" element={<Protected><Layout><MyHotels /></Layout></Protected>} />
           <Route exact path="/add-hotel" element={<Protected><Layout><AddHotel /></Layout></Protected>} />
+          <Route exact path="/hotel/edit/:id?" element={<Protected><Layout><EditHotel /></Layout></Protected>} />
         </Routes>
       </Suspense>
     </BrowserRouter>
