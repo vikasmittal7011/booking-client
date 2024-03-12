@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createHotel, getHotelById } from "./hotelAPI";
+import { createHotel, getHotelById, getHotelByUser } from "./hotelAPI";
 
 const initialState = {
   status: "idle",
@@ -7,6 +7,7 @@ const initialState = {
   hotelCreate: false,
   hotel: {},
   fetchedHotel: {},
+  ownerHotels: []
 };
 
 export const createHotelAsync = createAsyncThunk(
@@ -25,6 +26,14 @@ export const getHotelByIdAsync = createAsyncThunk(
   }
 );
 
+export const getHotelByUserAsync = createAsyncThunk(
+  "hotel/getHotelByUser",
+  async () => {
+    const response = await getHotelByUser();
+    return response;
+  }
+);
+
 export const hotelSlice = createSlice({
   name: "hotel",
   initialState,
@@ -34,6 +43,9 @@ export const hotelSlice = createSlice({
       state.hotelCreate = false;
       state.hotel = {};
     },
+    clearData: (state) => {
+      state.ownerHotels = []
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -61,10 +73,21 @@ export const hotelSlice = createSlice({
         state.status = "failed";
         state.message = action.error.message;
       })
+      .addCase(getHotelByUserAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getHotelByUserAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.ownerHotels = action.payload.data.hotels;
+      })
+      .addCase(getHotelByUserAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.message = action.error.message;
+      })
   },
 });
 
-export const { clearMessage } = hotelSlice.actions;
+export const { clearMessage, clearData } = hotelSlice.actions;
 
 export const selecthotel = (state) => state.hotel;
 

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { fetchUserDataAsync } from "./features/user/userSlice"
 import { selectauth } from "./features/auth/authSlice"
 import Protected from "./components/common/Protected"
+import Loading from "./components/common/Loading"
 
 const App = () => {
 
@@ -21,7 +22,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Suspense fallback={<h1>Loading...</h1>}>
+      <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={<Layout><Home /></Layout>} />
           <Route exact path="/login/:token?" element={<Layout><Login /></Layout>} />

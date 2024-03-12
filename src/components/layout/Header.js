@@ -4,6 +4,7 @@ import { clearMessage, logoutUserAsync, selectuser } from "../../features/user/u
 import Toast from "../common/Toast"
 import { out } from "../../features/auth/authSlice"
 import LoginLinks from "./LoginLinks"
+import { clearData } from "../../features/hotel/hotelSlice"
 
 const Header = () => {
 
@@ -14,6 +15,7 @@ const Header = () => {
     const handleClick = () => {
         dispatch(logoutUserAsync());
         dispatch(out());
+        dispatch(clearData());
     }
 
     return (
