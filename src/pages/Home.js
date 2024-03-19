@@ -26,9 +26,10 @@ const Home = () => {
 
     const handlStar = (e) => {
         const { checked, value } = e.target;
-        setStar((pre) => (
-            checked ? [...pre, +value] : pre.filter((p) => p !== value)
-        ))
+        setStar((pre) => {
+            console.log(typeof value)
+            return checked ? [...pre, +value] : pre.filter((p) => p !== +value)
+        })
     }
 
     const handlType = (e) => {
@@ -75,16 +76,15 @@ const Home = () => {
                     :
                     <>
                         <Hotels location={location} setSort={setSort} isOpen={isOpen} handleIsOpen={handleIsOpen} />
-                        <Pagination
-                            handlePage={handlePage}
-                            page={page}
-                            setPage={setPage}
-                            totalProduct={totalProduct}
-                        />
                     </>
-
                 }
             </div>
+            <Pagination
+                handlePage={handlePage}
+                page={page}
+                setPage={setPage}
+                totalProduct={totalProduct}
+            />
         </div>
     )
 }

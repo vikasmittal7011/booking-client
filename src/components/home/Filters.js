@@ -16,7 +16,7 @@ const Filters = ({ selectedStar, handlChnage, handlType, selectType, handlPerk, 
                     <PriceFilter selectPrice={selectPrice} handlePrice={handlePrice} />
                 </div>
             </div>
-            <div className={`${isOpen ? "block" : "hidden"} cursor-pointer fixed top-0 right-0 w-1/2 h-full bg-blue-600 text-white overflow-y-auto`}>
+            <div className={`${isOpen ? "block" : "hidden"} cursor-pointer fixed top-0 right-0 w-[80%] h-full bg-blue-600 text-white overflow-y-auto`}>
                 <div className="relative">
                     <XMarkIcon className="w-8 h-8 left-3 ms-3 absolute top-3 right-3" onClick={handleIsOpen} />
 
@@ -27,6 +27,7 @@ const Filters = ({ selectedStar, handlChnage, handlType, selectType, handlPerk, 
                         <PerkFilter selectPerk={selectPerk} handlPerk={handlPerk} />
                         <PriceFilter selectPrice={selectPrice} handlePrice={handlePrice} mobile={true} />
                     </div>
+                    
                 </div>
             </div>
 
