@@ -1,5 +1,5 @@
 import DatePicker from "react-datepicker";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 
 import "react-datepicker/dist/react-datepicker.module.css"
@@ -15,7 +15,7 @@ const BookingForm = ({ hotel }) => {
 
     const { user } = useSelector(selectuser);
 
-    const { watch, register, formState: { errors }, handleSubmit, control } = useForm({
+    const { watch, setValue, register, formState: { errors }, handleSubmit } = useForm({
         defaultValues: {
             ...JSON.parse(localStorage.getItem("bookingInfo"))
         },
@@ -29,6 +29,7 @@ const BookingForm = ({ hotel }) => {
     maxDate.setFullYear(maxDate.getFullYear() + 1)
 
     const onSubmit = (data) => {
+        console.log(data)
         if (data.adultCount) {
             localStorage.setItem("bookingInfo", JSON.stringify(data))
             navigate(`/hotel/${hotel.id}/booking`)
@@ -54,46 +55,38 @@ const BookingForm = ({ hotel }) => {
             <form onSubmit={user.email ? handleSubmit(onSubmit) : handleSubmit(handleLogin)}>
                 <div className="grid grid-cols-1 gap-4 items-center">
                     <div>
-                        <Controller
+                        <DatePicker
                             {...register("checkIn", { required: 'This field is required...' })}
-                            control={control}
-                            render={({ field }) => (
-                                <DatePicker
-                                    required
-                                    selected={checkIn}
-                                    onChange={(date) => field.onChange(date)}
-                                    selectsStart
-                                    startDate={checkIn}
-                                    endDate={checkOut}
-                                    minDate={minDate}
-                                    maxDate={maxDate}
-                                    placeholderText="Check-In Date"
-                                    className="min-w-full bg-white p-2 focus:outline-none"
-                                    wrapperClassName="min-w-full"
-                                />
-                            )}
+                            required
+                            selected={checkIn}
+                            onChange={(date) => setValue("checkIn", date)}
+                            selectsStart
+                            startDate={checkIn}
+                            endDate={checkOut}
+                            minDate={minDate}
+                            maxDate={maxDate}
+                            placeholderText="Check-In Date"
+                            className="min-w-full bg-white p-2 focus:outline-none"
+                            wrapperClassName="min-w-full"
+                            dateFormat="MMMM d, yyyy"
                         />
                         {errors.checkIn && <span className="text-red-500">{errors.checkIn.message}</span>}
                     </div>
                     <div>
-                        <Controller
+                        <DatePicker
                             {...register("checkOut", { required: 'This field is required...' })}
-                            control={control}
-                            render={({ field }) => (
-                                <DatePicker
-                                    required
-                                    selected={checkOut}
-                                    onChange={(date) => field.onChange(date)}
-                                    selectsStart
-                                    startDate={checkIn}
-                                    endDate={checkOut}
-                                    minDate={checkIn || minDate}
-                                    maxDate={maxDate}
-                                    placeholderText="Check-Out Date"
-                                    className="min-w-full bg-white p-2 focus:outline-none"
-                                    wrapperClassName="min-w-full"
-                                />
-                            )}
+                            required
+                            selected={checkOut}
+                            onChange={(date) => setValue("checkOut", date)}
+                            selectsStart
+                            startDate={checkIn}
+                            endDate={checkOut}
+                            minDate={checkIn || minDate}
+                            maxDate={maxDate}
+                            placeholderText="Check-Out Date"
+                            className="min-w-full bg-white p-2 focus:outline-none"
+                            wrapperClassName="min-w-full"
+                            dateFormat="MMMM d, yyyy"
                         />
                         {errors.checkOut && <span className="text-red-500">{errors.checkOut.message}</span>}
 
