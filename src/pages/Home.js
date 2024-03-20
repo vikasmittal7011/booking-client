@@ -27,7 +27,6 @@ const Home = () => {
     const handlStar = (e) => {
         const { checked, value } = e.target;
         setStar((pre) => {
-            console.log(typeof value)
             return checked ? [...pre, +value] : pre.filter((p) => p !== +value)
         })
     }

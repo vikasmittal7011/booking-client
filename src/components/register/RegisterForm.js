@@ -25,11 +25,13 @@ const RegisterForm = () => {
     })
 
     useEffect(() => {
-        setValue("firstName", userData.firstName)
-        setValue("lastName", userData.lastName)
-        setValue("email", userData.email)
-        setValue("password", userData.password)
-        setValue("confirmPassword", userData.confirmPassword)
+        if (sendOTP) {
+            setValue("firstName", userData.firstName)
+            setValue("lastName", userData.lastName)
+            setValue("email", userData.email)
+            setValue("password", userData.password)
+            setValue("confirmPassword", userData.confirmPassword)
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sendOTP]);
 

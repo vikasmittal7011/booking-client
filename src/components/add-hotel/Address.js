@@ -10,24 +10,24 @@ const Address = () => {
         <div className="flex flex-col gap-6">
             <Heading heading="Address" />
 
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-1 gap-4">
                 <label className={labelClass}>
-                    Street
-                    <input {...register("street", { required: "This field is require..." })} className={inputClass} />
-                    {errors.street && <span className="text-red-500">{errors.street.message}</span>}
+                    Address Line
+                    <input {...register("addressLine", { required: "This field is require..." })} className={inputClass} />
+                    {errors.addressLine && <span className="text-red-500">{errors.addressLine.message}</span>}
                 </label>
             </div>
 
             <div className="grid md:grid-cols-3 gap-4">
                 <label className={labelClass}>
-                    City
-                    <input {...register("city", { required: "This field is require..." })} className={inputClass} />
-                    {errors.city && <span className="text-red-500">{errors.city.message}</span>}
-                </label>
-                <label className={labelClass}>
                     State
                     <input {...register("state", { required: "This field is require..." })} className={inputClass} />
                     {errors.state && <span className="text-red-500">{errors.state.message}</span>}
+                </label>
+                <label className={labelClass}>
+                    Country
+                    <input {...register("country", { required: "This field is require..." })} className={inputClass} />
+                    {errors.country && <span className="text-red-500">{errors.country.message}</span>}
                 </label>
                 <label className={labelClass}>
                     Pin
@@ -37,11 +37,7 @@ const Address = () => {
             </div>
 
             <div className="grid grid-cols-1 gap-4">
-                <label className={labelClass}>
-                    Country
-                    <input {...register("country", { required: "This field is require..." })} className={inputClass} />
-                    {errors.country && <span className="text-red-500">{errors.country.message}</span>}
-                </label>
+
             </div>
 
         </div>

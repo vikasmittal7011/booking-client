@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { clearMessage, selectauth } from "../features/auth/authSlice";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Toast from "../components/common/Toast";
 import { useEffect, useState } from "react";
 import { scrollToTop } from "../constant";
@@ -9,6 +9,8 @@ import ForgetPasswordForm from "../components/login/ForgetPasswordForm";
 import ResetPasswordForm from "../components/login/ResetPasswordForm";
 
 const Login = () => {
+
+    const location = useLocation();
 
     const { token } = useParams();
 
@@ -25,9 +27,9 @@ const Login = () => {
 
     useEffect(() => {
         if (loginSuccess) {
-            navigate("/")
+            navigate(location?.state?.from?.pathname || "/")
         }
-    }, [loginSuccess, navigate]);
+    }, [location?.state?.from?.pathname, loginSuccess, navigate]);
 
     useEffect(() => {
         if (passwordReset) {
