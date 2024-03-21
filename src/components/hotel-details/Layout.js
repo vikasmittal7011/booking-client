@@ -4,19 +4,27 @@ import { BsCashStack } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import DeleteNoti from "./DeteleNoti";
 import { useState } from "react";
+import Bookings from "./Bookings";
 
-const Layout = ({ hotel, hotelDelete }) => {
+const Layout = ({ hotel }) => {
 
     const [open, setOpen] = useState(false)
+    const [openBookings, setOpenBookings] = useState(false);
 
     const handleOpen = () => {
         setOpen(!open);
+    }
+
+    const handleOpenBookings = () => {
+        setOpenBookings(!openBookings);
     }
 
     return (
         <div className="flex flex-col justify-between border border-slate-300 rounded-lg p-2 md:p-8 gap-5">
 
             <DeleteNoti open={open} handleOpen={handleOpen} hotel={hotel} />
+
+            <Bookings open={openBookings} handleOpen={handleOpenBookings} hotel={hotel} />
 
             <h2 className="text-2xl font-bold">{hotel.name}</h2>
             <div className="flex justify-between flex-col md:flex-row gap-5">
@@ -46,9 +54,11 @@ const Layout = ({ hotel, hotelDelete }) => {
                 </div>
             </div>
             <div className="flex justify-between items-center mt-2">
-                <Link className="bg-blue-500 px-3 py-1 text-white hover:bg-blue-600 transition-all" to={`/hotel/${hotel.id}`}>View Details</Link>
+                <Link className="bg-cyan-500 px-3 py-1 text-white hover:bg-cyan-600 transition-all" to={`/hotel/${hotel.id}`}>View Details</Link>
 
-                <button onClick={handleOpen} type="button" className="bg-red-500 px-3 py-1 text-white hover:bg-red-600 transition-all" to={`/hotel/${hotel.id}`}>Delete</button>
+                <button onClick={handleOpenBookings} type="button" className="bg-green-500 px-3 py-1 text-white hover:bg-green-600 transition-all">View Bookings</button>
+
+                <button onClick={handleOpen} type="button" className="bg-red-500 px-3 py-1 text-white hover:bg-red-600 transition-all">Delete</button>
 
                 <Link className="bg-blue-500 px-3 py-1 text-white hover:bg-blue-600 transition-all" to={`/hotel/edit/${hotel.id}`}>Edit</Link>
             </div>
