@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createHotel, getHotelById, getHotelByUser, getHotels, upateHotel } from "./hotelAPI";
+import { createHotel, deletHotel, getHotelById, getHotelByUser, getHotels, upateHotel } from "./hotelAPI";
 
 const initialState = {
   status: "idle",
@@ -7,6 +7,7 @@ const initialState = {
   message: "",
   hotelCreate: false,
   hotelUpdate: false,
+  hotelDelete: false,
   hotel: [],
   hotels: [],
   totalProduct: 0,
@@ -54,6 +55,14 @@ export const getHotelsAsync = createAsyncThunk(
   }
 );
 
+export const deletHotelAsync = createAsyncThunk(
+  "hotel/deletHotel",
+  async (id) => {
+    const response = await deletHotel(id);
+    return response;
+  }
+);
+
 export const hotelSlice = createSlice({
   name: "hotel",
   initialState,
@@ -62,6 +71,7 @@ export const hotelSlice = createSlice({
       state.message = null;
       state.hotelCreate = false;
       state.hotelUpdate = false;
+      state.hotelDelete = false;
       state.hotel = {};
     },
     clearData: (state) => {
@@ -127,6 +137,18 @@ export const hotelSlice = createSlice({
         state.totalProduct = action.payload.data.totalDocsCount;
       })
       .addCase(getHotelsAsync.rejected, (state, action) => {
+        state.updateStatus = "failed";
+        state.message = action.error.message;
+      })
+      .addCase(deletHotelAsync.pending, (state) => {
+        state.updateStatus = "loading";
+      })
+      .addCase(deletHotelAsync.fulfilled, (state, action) => {
+        state.updateStatus = "idle";
+        state.hotelDelete = true;
+        state.message = "Deletion Success";
+      })
+      .addCase(deletHotelAsync.rejected, (state, action) => {
         state.updateStatus = "failed";
         state.message = action.error.message;
       })

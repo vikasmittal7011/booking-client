@@ -1,23 +1,26 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { getHotelByUserAsync, selecthotel } from "../features/hotel/hotelSlice";
+import { clearMessage, getHotelByUserAsync, selecthotel } from "../features/hotel/hotelSlice";
 import SimpleLoading from "../components/common/SimpleLoading";
 import Layout from "../components/hotel-details/Layout";
+import Toast from "../components/common/Toast";
 
 const MyHotels = () => {
 
-    const { status, ownerHotels } = useSelector(selecthotel);
+    const { status, ownerHotels, hotelDelete, message } = useSelector(selecthotel);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getHotelByUserAsync())
+        if (ownerHotels.length < 1 || hotelDelete)
+            dispatch(getHotelByUserAsync())
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [hotelDelete]);
 
     return (
         <>
+            <Toast type={status === "failed" ? "err" : "success"} message={message} clearMessage={clearMessage} />
             {status === "loading" ?
                 <SimpleLoading /> :
                 <div className="space-y-5">
@@ -29,7 +32,7 @@ const MyHotels = () => {
                         ownerHotels.length > 0 ?
                             <div className="grid grid-cols-1 gap-8">
                                 {ownerHotels.map((hotel, i) => (
-                                    <Layout hotel={hotel} key={i} />
+                                    <Layout hotel={hotel} key={i} hotelDelete={hotelDelete} />
                                 ))}
                             </div>
                             :

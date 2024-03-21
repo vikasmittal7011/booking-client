@@ -50,7 +50,6 @@ export const upateHotel = (hotel) => {
   });
 }
 
-
 export const getHotels = (data) => {
   let queryString = "";
 
@@ -80,6 +79,17 @@ export const getHotels = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await axios.get(API + "hotel?" + queryString, { withCredentials: true });
+      resolve({ data: response.data });
+    } catch (error) {
+      reject({ message: error.response.data.message });
+    }
+  });
+}
+
+export const deletHotel = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios.delete(API + "hotel/" + id, { withCredentials: true });
       resolve({ data: response.data });
     } catch (error) {
       reject({ message: error.response.data.message });
