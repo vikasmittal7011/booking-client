@@ -29,7 +29,6 @@ const BookingForm = ({ hotel }) => {
     maxDate.setFullYear(maxDate.getFullYear() + 1)
 
     const onSubmit = (data) => {
-        console.log(data)
         if (data.adultCount) {
             localStorage.setItem("bookingInfo", JSON.stringify(data))
             navigate(`/hotel/${hotel.id}/booking`)

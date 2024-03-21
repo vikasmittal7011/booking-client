@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { clearMessage, logoutUserAsync, selectuser } from "../../features/user/userSlice"
 import Toast from "../common/Toast"
 import { out } from "../../features/auth/authSlice"
@@ -7,6 +7,7 @@ import LoginLinks from "./LoginLinks"
 import { clearData } from "../../features/hotel/hotelSlice"
 
 const Header = () => {
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -16,6 +17,7 @@ const Header = () => {
         dispatch(logoutUserAsync());
         dispatch(out());
         dispatch(clearData());
+        navigate("/")
     }
 
     return (

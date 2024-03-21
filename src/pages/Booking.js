@@ -19,7 +19,6 @@ const Booking = () => {
 
     const dispatch = useDispatch();
 
-
     useEffect(() => {
         if (bookingInfo.checkIn && bookingInfo.checkOut) {
             const nights = Math.abs(new Date(bookingInfo.checkOut).getTime() - new Date(bookingInfo.checkIn).getTime()) / (1000 * 60 * 60 * 24);

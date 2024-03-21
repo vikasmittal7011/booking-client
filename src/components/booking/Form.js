@@ -24,8 +24,6 @@ const Form = ({ hotel, nights, bookingInfo }) => {
         const { data, key } = info;
         const callback_url = `${process.env.REACT_APP_URL}booking/paymentverification?checkIn=${bookingInfo.checkIn}&checkOut=${bookingInfo.checkOut}&hotel=${hotel.id}&adultCount=${bookingInfo.adultCount}&childCount=${bookingInfo.childCount}&price=${nights * hotel.discountedPrice}`;
 
-        console.log(callback_url)
-
         const options = {
             key,
             amount: +data.amount,

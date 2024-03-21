@@ -10,5 +10,6 @@ const EditHotel = lazy(() => import("./EditHotel"))
 const Booking = lazy(() => import("./Booking"))
 const Confirm = lazy(() => import("./Confirm"))
 const Failer = lazy(() => import("./Failer"))
+const MyBookings = lazy(() => import("./MyBookings"))
 
-export { Confirm, Failer, Home, Register, Login, MyHotels, AddHotel, HotelDetail, EditHotel, Booking }
+export { Confirm, MyBookings, Failer, Home, Register, Login, MyHotels, AddHotel, HotelDetail, EditHotel, Booking }

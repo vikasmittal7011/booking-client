@@ -1,16 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createPaymentIntent } from "./bookingAPI";
+import { createPaymentIntent, fetchMybookings } from "./bookingAPI";
 
 const initialState = {
   status: "idle",
   intentCreated: false,
-  info: {}
+  info: {},
+  myBooking: [],
 };
 
 export const createPaymentIntentAsync = createAsyncThunk(
   "booking/createPaymentIntent",
   async (amount) => {
     const response = await createPaymentIntent(amount);
+    return response;
+  }
+);
+
+export const fetchMybookingsAsync = createAsyncThunk(
+  "booking/fetchMybookings",
+  async () => {
+    const response = await fetchMybookings();
     return response;
   }
 );
@@ -37,7 +46,17 @@ export const bookingSlice = createSlice({
         state.status = "failed";
         state.message = action.error.message;
       })
-
+      .addCase(fetchMybookingsAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchMybookingsAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.myBooking = action.payload.data.booking;
+      })
+      .addCase(fetchMybookingsAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.message = action.error.message;
+      })
   },
 });
 

@@ -8,7 +8,19 @@ export const createPaymentIntent = (amount) => {
       const response = await axios.post(API + "booking/checkout", { totalAmount: amount },
         { withCredentials: true, }
       );
-      console.log(response.data)
+      resolve({ data: response.data });
+    } catch (error) {
+      reject({ message: error.response.data.message });
+    }
+  });
+}
+
+export const fetchMybookings = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios.get(API + "booking",
+        { withCredentials: true, }
+      );
       resolve({ data: response.data });
     } catch (error) {
       reject({ message: error.response.data.message });
