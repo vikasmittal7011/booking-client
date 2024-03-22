@@ -41,7 +41,7 @@ const ForgetPasswordForm = ({ handleForgetPasswordState, status }) => {
             <div className="flex flex-col md:flex-row justify-end md:items-center gap-5">
                 <button type="submit" className={`bg-blue-700 outline-none text-white p-2 px-4 rounded-md font-bold text-xl hover:bg-blue-500 transition-all ${status === "loading" ? "cursor-not-allowed" : "cursor-pointer"} flex justify-center items-center gap-2`}>
                     <ClipLoader size={20} color="white" loading={status === "loading"} />
-                    <div>Login Account</div>
+                    <div>Send Reset Request</div>
                 </button>
             </div>
         </form>

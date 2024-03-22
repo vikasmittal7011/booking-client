@@ -46,6 +46,8 @@ const App = () => {
 
           <Route path="/confirm/:id" exact element={<Confirm />}></Route>
 
+          <Route path="*" element={<Layout><Home /></Layout>} />
+
         </Routes>
       </Suspense>
     </BrowserRouter >
